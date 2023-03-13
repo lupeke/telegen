@@ -9,7 +9,7 @@ A simple chatbot that integrates the OpenAI's ChatGPT API to provide an AI power
 ```shell
 docker build -t telegpt .
 ```
-3. Create and run the container
+4. Create and run the container
 ```shell
 docker run --rm -it telegpt
 ```
