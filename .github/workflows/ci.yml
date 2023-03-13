@@ -3,7 +3,7 @@ name: Enforce the PEP8 style guide
 on: [push]
 
 jobs:
-  lint_test:
+  autopep8:
     runs-on: ubuntu-latest
     strategy:
       matrix:

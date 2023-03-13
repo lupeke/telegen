@@ -3,7 +3,7 @@
 OPENAI_API_KEY = '<YOUR_API_KEY>'
 TELEGRAM_TOKEN = '<YOUR_TELEGRAM_TOKEN>'
 
-keep_history = false
+keep_history = true
 debug = false
 
 [openai]
