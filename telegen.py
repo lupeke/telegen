@@ -38,8 +38,7 @@ async def erase_history(message):
         info = '_Chat history has been cleared._'
     else:
         info = '_Chat history is empty._'
-    print(history)
-    await bot.reply_to(message, info)
+    await bot.reply_to(message, info)   
 
 
 @bot.message_handler(commands=['system'])
