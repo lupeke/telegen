@@ -1,6 +1,5 @@
 """
-telegpt is a simple chatbot that integrates the OpenAI's ChatGPT API
-to provide an AI powered chat experience on Telegram.
+A simple chatbot that integrates the OpenAI's ChatGPT API.
 """
 
 import pathlib
@@ -17,7 +16,12 @@ with confpath.open(mode='rb') as cf:
 
 bot = AsyncTeleBot(config['TELEGRAM_TOKEN'], parse_mode='MARKDOWN')
 openai.api_key = config['OPENAI_API_KEY']
+
 history = {}
+messages = []
+
+if len(config['openai']['context']) > 0:
+    messages.append({'role': 'system', 'content': config['openai']['context']})
 
 
 def debug(str):
@@ -28,19 +32,28 @@ def debug(str):
 async def erase_history(message):
     chat_id = message.chat.id
     if not config['keep_history']:
-        await bot.reply_to(message, '_Chat history is disabled._')
+        info = '_Chat history is disabled._'
     elif chat_id in history.keys():
-        del history[chat_id]
-        await bot.reply_to(message, '_Chat history has been cleared._')
+        del history[chat_id][1:]
+        info = '_Chat history has been cleared._'
     else:
-        await bot.reply_to(message, '_Chat history is empty._')
+        info = '_Chat history is empty._'
+    print(history)
+    await bot.reply_to(message, info)
 
 
-@bot.message_handler(func=lambda msg: True)
+@bot.message_handler(commands=['system'])
+async def add_context(message):
+    context = message.text.removeprefix('/system').lstrip()
+    if len(context) > 0:
+        debug(f'=> New instruction: {context}')
+        messages.append({'role': 'system', 'content': context})
+
+
+@bot.message_handler(content_types=['text'])
 async def chatbot_reply(message):
     chat_id, username = message.chat.id, message.from_user.first_name
     print(f'=> {username.capitalize()}: {message.text}')
-
     try:
         answer = await create_prompt(chat_id, message.text)
         await bot.send_message(chat_id, answer)
@@ -50,14 +63,13 @@ async def chatbot_reply(message):
 
 def format_messages(chat_id, msg):
     message = {'role': 'user', 'content': msg}
-
     if config['keep_history']:
-        history.setdefault(chat_id, [])
+        history.setdefault(chat_id, messages)
         history[chat_id].append(message)
         debug(f'=> Chat history:\n{history[chat_id]}')
         return history[chat_id]
 
-    messages = [message]
+    messages.append(message)
     debug(f'=> Messages:\n{messages}')
     return messages
 
@@ -65,21 +77,21 @@ def format_messages(chat_id, msg):
 async def create_prompt(chat_id, input):
     params = config['openai']
     output = openai.ChatCompletion.create(
-            model=params['model'],
-            temperature=params['temperature'],
-            max_tokens=params['max_tokens'],
-            top_p=params['top_p'],
-            frequency_penalty=params['frequency_penalty'],
-            presence_penalty=params['presence_penalty'],
-            messages=format_messages(chat_id, input)
-            )
+        model=params['model'],
+        temperature=params['temperature'],
+        max_tokens=params['max_tokens'],
+        top_p=params['top_p'],
+        frequency_penalty=params['frequency_penalty'],
+        presence_penalty=params['presence_penalty'],
+        messages=format_messages(chat_id, input)
+    )
     completion = output.choices[0].message.content
 
     if config['keep_history']:
         history[chat_id].append({'role': 'assistant', 'content': completion})
 
     debug(f'=> OpenAI output: {output}')
-    print(f'=> Assistant: {completion}')
+    print(f'=> Chatbot: {completion}')
 
     return completion
 
@@ -89,7 +101,7 @@ async def main():
         print('=> Chatbot is running')
         await bot.infinity_polling(timeout=90)
     except Exception as e:
-        print(f"=> Can't start chatbot: {e}")
+        print(f'=> Chatbot failed to start: {e}')
 
 
 if __name__ == '__main__':
