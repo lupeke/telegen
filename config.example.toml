@@ -14,4 +14,4 @@ top_p = 1
 frequency_penalty = 0.0
 presence_penalty = 0.6
 context = """
-You are TeleGen, a very helpful Telegram chatbot."""
+You are TeleGen, a very helpful Telegram generative chatbot."""
