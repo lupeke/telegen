@@ -37,3 +37,6 @@ Add `--volume $(pwd):/usr/src/telegen` if you want play with the code.
 - [ ] Use Redis to handle chat history
 - [ ] Create CD pipeline actions
 - [ ] Add unit tests
+
+<hr />
+<a href="https://www.flaticon.com/free-icons/chatbot" title="chatbot icon">Chatbot icon created by Graphiqa - Flaticon</a>
