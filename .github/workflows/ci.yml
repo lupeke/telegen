@@ -22,12 +22,12 @@ jobs:
           pip install autopep8
       - name: Fix code formatting issues automatically
         run: |
-          FIXES=$(autopep8 --diff --recursive --aggressive --aggressive .)
+          autopep8 --exit-code \
+          --in-place \
+          --recursive \
+          --aggressive --aggressive .
 
-          if [[ -n $FIXES ]]; then
-            echo "The following changes were made:"
-            echo "$FIXES"
-
+          if [ "$?" == 2 ]; then
             git config --global user.name 'Daniel Dias'
             git config --global user.email 'lupeke@users.noreply.github.com'
 
