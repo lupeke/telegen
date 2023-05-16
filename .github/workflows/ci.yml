@@ -33,6 +33,8 @@ jobs:
 
             git commit -am "apply autopep8 formatting fixes"
             git push
+
+            exit 0
           else
             echo "No autopep8 changes to apply."
           fi
