@@ -18,7 +18,7 @@ bot = AsyncTeleBot(config['TELEGRAM_TOKEN'], parse_mode='MARKDOWN')
 openai.api_key = config['OPENAI_API_KEY']
 
 history = {}
-messages = []    
+messages = []
 
 if len(config['openai']['context']) > 0:
     messages.append({'role': 'system', 'content': config['openai']['context']})
@@ -26,6 +26,7 @@ if len(config['openai']['context']) > 0:
 
 def debug(str):
     print(str) if config['debug'] else None
+
 
 @bot.message_handler(commands=['restart'])
 async def erase_history(message):
