@@ -17,8 +17,8 @@ with confpath.open(mode='rb') as cf:
 bot = AsyncTeleBot(config['TELEGRAM_TOKEN'], parse_mode='MARKDOWN')
 openai.api_key = config['OPENAI_API_KEY']
 
-history = {}    
-messages = []   
+history = {}
+messages = []
 
 if len(config['openai']['context']) > 0:
     messages.append({'role': 'system', 'content': config['openai']['context']})
