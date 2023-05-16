@@ -22,19 +22,18 @@ jobs:
           pip install autopep8
       - name: Fix code formatting issues automatically
         run: |
-          autopep8 --exit-code \
-          --in-place \
+          autopep8 --in-place \
           --recursive \
           --aggressive --aggressive .
+ 
+          FIXES=$(git diff)
 
-          if [ "$?" == 2 ]; then
+          if [[ -n $FIXES ]]; then
             git config --global user.name 'Daniel Dias'
             git config --global user.email 'lupeke@users.noreply.github.com'
 
             git commit -am "apply autopep8 formatting fixes"
             git push
-
-            exit 0
           else
-            echo "No autopep8 changes to apply."
+            echo "No autopep8 fixes to apply."
           fi
