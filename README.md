@@ -25,7 +25,7 @@ docker build -t telegen .
 ```shell
 docker run --rm -it telegen
 ```
-Add `--volume $(pwd):/usr/src/telegen` if you want play with the code.
+Add `--volume $(pwd):/usr/src/telegen` to play with the code.
 
 ### Commands
 
