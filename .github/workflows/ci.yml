@@ -22,7 +22,7 @@ jobs:
           pip install autopep8
       - name: Fix code formatting issues automatically
         run: |
-          FIXES=$(autopep8 --diff --in-place --aggressive --aggressive .)
+          FIXES=$(autopep8 --diff --recursive --aggressive --aggressive .)
 
           if [[ -n $FIXES ]]; then
             echo "The following changes were made:"
