@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://storage.googleapis.com/lupeke.dev/telegen-pi.png" alt="telegen" width="250" /><br />
+    <img src="https://storage.googleapis.com/lupeke.dev/telegen.png" alt="telegen" width="250" /><br />
 </div>
 
 # About
@@ -33,7 +33,7 @@ docker run --rm -v $(pwd):/usr/local/src -p 5000:5000 --env-file=.env telegen
 
 ## Deploy
 
-This project should to be easily deployable as a Cloud Run service on GCP.
+This project should be easily deployable as a Cloud Run service on GCP.
 
 <hr />
 Icons created by <a href="https://www.flaticon.com/free-icons/pinocchio" title="pinocchio icons">rcherem</a>
