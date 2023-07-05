@@ -1,0 +1,20 @@
+# Configuration options for the landing page, OpenAI API calls and chat history
+
+keep_history = true
+
+[webpage]
+title='Telegen – an AI chatbot for Telegram'
+logo="https://storage.googleapis.com/lupeke.dev/telegen-bot.png"
+about="""<strong>Telegen</strong> is an AI chatbot for Telegram that puts ChatGPT at your service.
+Get instant answers, effortless translations, engaging chats, and explore the limitless possibilities of GAI technology."""
+bot_url='https://t.me/<YOUR_BOT_USERNAME>'
+
+
+[openai]
+model = "gpt-3.5-turbo"
+temperature = 0.5
+max_tokens = 2049
+top_p = 1
+frequency_penalty = 0.0
+presence_penalty = 0.6
+context = """You are Telegen, an awesome AI chatbot designed for Telegram."""
