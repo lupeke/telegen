@@ -1,2 +1,5 @@
-pyTelegramBotAPI
+python-dotenv
+gunicorn
+pytelegrambotapi
 openai
+flask
