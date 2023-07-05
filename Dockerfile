@@ -1,18 +1,23 @@
 FROM python:3-slim
 
-RUN addgroup --system telegen
-RUN adduser --system --group telegen
-USER telegen
-
-WORKDIR /usr/src/telegen
-
-ENV PYTHONDONTWRITEBYTECODE 1
+# Flush output to stdout and stderr streams
 ENV PYTHONUNBUFFERED 1
+# Disable writing bytecode files (.pyc) to disk
+ENV PYTHONDONTWRITEBYTECODE 1
 
+WORKDIR /usr/local/src
+
+# Copy and install application requirements
 RUN pip install --no-cache-dir --upgrade pip
-COPY --chown=telegen:telegen requirements.txt requirements.txt
-RUN pip install --no-cache-dir --user -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY --chown=telegen:telegen . .
+# Use Tini to handle multiple processes
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
+RUN chmod +x /usr/local/bin/tini
+ENTRYPOINT ["tini", "--"]
 
-CMD ["python", "./telegen.py"]
+COPY . .
+
+CMD ["./start.sh"]
