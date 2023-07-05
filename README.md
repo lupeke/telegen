@@ -1,42 +1,40 @@
 <div align="center">
-    <img src="https://storage.googleapis.com/lupeke/telegen.png" alt="telegen" width="250" /><br />
+    <img src="https://storage.googleapis.com/lupeke.dev/telegen-pi.png" alt="telegen" width="250" /><br />
 </div>
 
-# telegen
+# About
 
-A simple generative chatbot that integrates OpenAI's ChatGPT API to provide an AI-powered chat experience on Telegram.
+A simple AI chatbot that integrates ChatGPT API on Telegram.
 
 ## Basic usage
 
 ### Requirements
 
-* Python >= 3.11
-* [OpenAI](https://beta.openai.com/account/api-keys) and [Telegram](https://core.telegram.org/bots/features#botfather) authorization tokens
+* Python >= 3.11.
+* [OpenAI](https://beta.openai.com/account/api-keys) and [Telegram](https://core.telegram.org/bots/features#botfather) authorization tokens.
 
 ### Running
 
-1. Rename `config.example.toml` to `config.toml` and open it.
-2. Provide your own `TELEGRAM_TOKEN` and `OPENAI_API_KEY`
-3. Build the Docker image.
+1. Rename `.env.template` and provide your own `TELEGRAM_TOKEN` and `OPENAI_API_KEY`. 
+2. Build the Docker image.
 ```shell
 docker build -t telegen .
 ```
-4. Create and run the container
+4. Create and run the container.
 ```shell
-docker run --rm -it telegen
+docker run --rm -v $(pwd):/usr/local/src -p 5000:5000 --env-file=.env telegen
 ```
-Add `--volume $(pwd):/usr/src/telegen` to play with the code.
+5. Visit [localhost:5000](http://localhost:5000) in your browser. 
 
 ### Commands
 
-* `/restart` to clear chat history
-* `/system [instruction]` will change the behavior of the assistant
+* `/restart` to clear chat history.
+* `/system <instruction>` will change the behavior of the assistant.
 
-## Wishlist
+## Deploy
 
-- [ ] Use Redis to handle chat history
-- [ ] Create CD pipeline actions
-- [ ] Add unit tests
+This project should to be easily deployable as a Cloud Run service on GCP.
 
 <hr />
-<a href="https://www.flaticon.com/free-icons/chatbot" title="chatbot icon">Chatbot icon created by Graphiqa - Flaticon</a>
+Icons created by <a href="https://www.flaticon.com/free-icons/pinocchio" title="pinocchio icons">rcherem</a>
+and <a href="https://www.flaticon.com/free-icons/botnet" title="botnet icons">juicy_fish</a> - Flaticon
