@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="https://storage.googleapis.com/lupeke.dev/telegen-bot.png" />
+        <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <style>
+    .bg-gradient {
+      background-image: linear-gradient(to right, #f9fafb, #6b7280);
+    }
+  </style>        
+  <title>{{ content['title'] }}</title>
+    </head>
+    <body class="bg-gradient">
+        <div class="prose md:prose-sm lg:prose-xl mx-auto p-5 my-5 antialiased">
+            <img src="{{ content['logo'] }}" alt="telegen" width="200" class="mx-auto" />
+
+            <p class="lead leading-tight tracking-tight text-slate-800">
+                {{ content['about'] | safe }}
+            </p>
+            <div class="text-center py-5">
+                <a href="{{ content.bot_url }}"
+                    class="bg-sky-700 hover:bg-sky-900 py-5 px-8 text-lg subpixel-antialiased leading-8 rounded-full font-semibold text-white no-underline">Say hello!</a>
+            </div>
+            <p class="text-sm fixed bottom-0 py-5">
+            Free, open source software by <a href="https://github.com/lupeke" alt="created by Daniel Dias" target="_blank">lupeke</a>.<br />
+            </p>
+        </div>
+    </body>
+</html>
