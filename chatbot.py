@@ -3,22 +3,17 @@ A simple Telegram chatbot that integrates the OpenAI's ChatGPT API.
 """
 
 import os
-import logging
 import asyncio
 
 import openai
 from telebot.async_telebot import AsyncTeleBot
 from dotenv import load_dotenv
 
-from config import cfg
+from config import cfg, load_logging
 
-# Set up basic logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='[CHATBOT] %(levelname)s: %(asctime)s => %(message)s',
-    datefmt='%m/%d/%Y @ %I:%M%p')
 
-# Load env vars, create bot instance, etc
+# Load env vars, logging, create bot instance, etc
+logging = load_logging()
 load_dotenv()
 bot = AsyncTeleBot(os.environ['TELEGRAM_TOKEN'], parse_mode='MARKDOWN')
 openai.api_key = os.environ['OPENAI_API_KEY']
