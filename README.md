@@ -33,7 +33,7 @@ docker run --rm -v $(pwd):/usr/local/src -p 5000:5000 --env-file=.env telegen
 
 ## Deploy
 
-This project should be easily deployable as a Cloud Run service on GCP.
+This project should be easily deployable as a Cloud Run service on GCP. Just make sure to set up all environment variables and change the _maximum number of instances_ to 0 (you shouldn't have more than one bot instance running at the same time).
 
 <hr />
 Icons created by <a href="https://www.flaticon.com/free-icons/pinocchio" title="pinocchio icons">rcherem</a>
